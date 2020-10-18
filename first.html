@@ -1,97 +1,178 @@
 <html>
+
 <body>
-<div>
-    <button type="button" class="btn" onclick="drawOriginalFigure()">Initial form</button>
-</div>
-<div>
-    <input type="range" min="0" max="7" step="1" value="0" oninput="makeNextStep(this.value)"
-           onchange="makeNextStep(this.value)">
-</div>
-<canvas id="canvas" width="500" height="500"></canvas>
-<script>
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    drawBorderLines();
-
-    function drawBorderLines() {
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(500, 0);
-        ctx.lineTo(500, 500);
-        ctx.lineTo(0, 500);
-        ctx.closePath();
-        ctx.stroke();
-    }
-
-    function drawOriginalFigure() {
-        ctx.fillStyle = "#1bbc9c";
-        drawFigure();
+    <div>
+        <button type="button" class="btn" onclick="drawOriginalFigure()">Initial form</button>
+    </div>
+    <div>
+        <input type="range" min="0" max="7" step="1" value="0" oninput="makeNextStep(this.value)"
+            onchange="makeNextStep(this.value)">
+    </div>
+    <div>
+        <h2>Transformacijos</h2>
+        <button type="button" class="btn" onclick="first()">1</button>
+        <button type="button" class="btn" onclick="second()">2</button>
+        <button type="button" class="btn" onclick="third()">3</button>
+        <button type="button" class="btn" onclick="fourth()">4</button>
+    </div>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
         drawBorderLines();
-    }
 
-    function drawFigure() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(0, 500);
-        ctx.lineTo(350, 500);
-        ctx.lineTo(350, 350);
-        ctx.lineTo(250, 350);
-        ctx.lineTo(250, 150);
-        ctx.lineTo(500, 150);
-        ctx.lineTo(500, 0);
-        ctx.lineTo(0, 0);
-        ctx.closePath();
-        ctx.fill();
-    }
-
-    function makeNextStep(step = 0, color = null) {
-        let getColor = false;
-        if (step > 0) {
-            if (color) {
-                getColor = true;
-            }
-            step--;
-            ctx.save();
-            ctx.transform(0.5, 0, 0, 0.5, 0, 0);
-            if (!getColor) {
-                color = "#ffe700";
-            }
-            ctx.fillStyle = color;
-            makeNextStep(step, color);
-            ctx.restore();
-            ctx.save();
-            ctx.transform(0.5, 0, 0, -0.5, 250, 250);
-            if (!getColor) {
-                color = "#002fd7";
-            }
-            ctx.fillStyle = color;
-            makeNextStep(step, color);
-            ctx.restore();
-            ctx.save();
-            ctx.transform(0.5, 0, 0, 0.5, 250, 250);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.restore();
-            ctx.save();
-            ctx.transform(0.25, 0, 0, 0.25, 250, 375);
-            if (!getColor) {
-                color = "#ff0000";
-            }
-            ctx.fillStyle = color;
-            makeNextStep(step, color);
-            ctx.restore();
-            ctx.save();
-            ctx.transform(-0.5, 0, 0, 0.5, 250, 250);
-            if (!getColor) {
-                color = "#065403";
-            }
-            ctx.fillStyle = color;
-            makeNextStep(step, color);
-            ctx.restore();
-        } else {
-            drawFigure();
+        function drawBorderLines() {
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(500, 0);
+            ctx.lineTo(500, 500);
+            ctx.lineTo(0, 500);
+            ctx.closePath();
+            ctx.stroke();
         }
-    }
-</script>
+
+        function drawOriginalFigure() {
+            ctx.fillStyle = "#1bbc9c";
+            drawFigure();
+            drawBorderLines();
+        }
+
+        function drawFigure() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, 500);
+            ctx.lineTo(350, 500);
+            ctx.lineTo(350, 350);
+            ctx.lineTo(250, 350);
+            ctx.lineTo(250, 150);
+            ctx.lineTo(500, 150);
+            ctx.lineTo(500, 0);
+            ctx.lineTo(0, 0);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function makeNextStep(step = 0, color = null) {
+            let getColor = false;
+            if (step > 0) {
+                if (color) {
+                    getColor = true;
+                }
+                step--;
+                ctx.save();
+                ctx.transform(0.5, 0, 0, 0.5, 0, 0);
+                if (!getColor) {
+                    color = "#ffe700";
+                }
+                ctx.fillStyle = color;
+                makeNextStep(step, color);
+                ctx.restore();
+                ctx.save();
+                ctx.transform(0.5, 0, 0, -0.5, 250, 250);
+                if (!getColor) {
+                    color = "#002fd7";
+                }
+                ctx.fillStyle = color;
+                makeNextStep(step, color);
+                ctx.restore();
+                ctx.save();
+                ctx.transform(0.5, 0, 0, 0.5, 250, 250);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+                ctx.save();
+                ctx.transform(0.25, 0, 0, 0.25, 250, 375);
+                if (!getColor) {
+                    color = "#ff0000";
+                }
+                ctx.fillStyle = color;
+                makeNextStep(step, color);
+                ctx.restore();
+                ctx.save();
+                ctx.transform(-0.5, 0, 0, 0.5, 250, 250);
+                if (!getColor) {
+                    color = "#065403";
+                }
+                ctx.fillStyle = color;
+                makeNextStep(step, color);
+                ctx.restore();
+            } else {
+                drawFigure();
+            }
+        }
+
+        function drawAnimation(animation, xStep, yStep, scale) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            var currentStep = 0;
+            var mirror = 0.04;
+            var inter = setInterval(drawTransformation, 50);
+
+            function drawTransformation() {
+                ctx.save();
+                ctx.clearRect(0, 0, 500, 500);
+                drawBorderLines();
+
+                switch (animation) {
+                    case 1:
+                        ctx.scale(1 - currentStep * scale, 1 - currentStep * scale);
+                        break;
+                    case 2:
+                        ctx.translate(currentStep * xStep, currentStep * yStep);
+                        ctx.scale(1 - currentStep * scale, 1 - currentStep * scale);
+                        ctx.scale(1, 1 - currentStep * mirror);
+                        break;
+                    case 3:
+                        ctx.translate(currentStep * xStep, currentStep * yStep);
+                        ctx.scale(1 - currentStep * scale, 1 - currentStep * scale);
+                        ctx.scale(1 - currentStep * mirror, 1);
+                        break;
+                    case 4:
+                        ctx.translate(currentStep * xStep, currentStep * yStep);
+                        ctx.scale(1 - currentStep * scale, 1 - currentStep * scale);
+                        break;
+                }
+
+                drawFigure();
+                ctx.restore();
+
+                if (currentStep === 50) {
+                    clearInterval(inter);
+                    inter = 0;
+                }
+                else {
+                    currentStep++;
+                }
+            }
+        }
+        function first() {
+            ctx.fillStyle = "#ffe700";
+            drawAnimation(animation = 1,
+                xStep = 0,
+                yStep = 0,
+                scale = 0.01);
+        }
+        function second() {
+            ctx.fillStyle = "#002fd7";
+            drawAnimation(animation = 2,
+                xStep = 5,
+                yStep = 5,
+                scale = 0.01);
+        }
+        function third() {
+            ctx.fillStyle = "#065403";
+            drawAnimation(animation = 3,
+                xStep = 5,
+                yStep = 5,
+                scale = 0.01);
+        }
+        function fourth() {
+            ctx.fillStyle = "#ff0000";
+            drawAnimation(animation = 4,
+                xStep = 5,
+                yStep = 7.5,
+                scale = 0.015);
+        }
+
+    </script>
 </body>
 </html>
